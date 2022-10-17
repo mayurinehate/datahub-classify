@@ -10,7 +10,7 @@ with open("./src/datahub_classify/__init__.py") as fp:
 
 def get_long_description():
     root = os.path.dirname(__file__)
-    return pathlib.Path(os.path.join(root, "README.md")).read_text()
+    return pathlib.Path(os.path.join(root, "README.md")).read_text(encoding='utf-8')
 
 base_requirements = {
     "spacy==3.4.1",
