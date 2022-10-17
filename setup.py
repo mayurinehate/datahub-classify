@@ -15,6 +15,8 @@ def get_long_description():
 base_requirements = {
     "spacy==3.4.1",
     "phonenumbers==8.12.56",
+    "pandas==1.5.0",
+    "scikit-learn==1.1.2",
     "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.0/en_core_web_sm-3.4.0.tar.gz"
 }
 
