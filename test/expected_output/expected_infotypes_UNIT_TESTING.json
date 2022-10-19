@@ -7,7 +7,7 @@
         "Person": "Full_Name",
         "Current Age": "Age",
         "Retirement Age": "Age",
-        "Gender": "Gender",
+        "gender": "Gender",
         "Address": "Street_Address"
     },
     "data3": {
@@ -20,7 +20,9 @@
         "Card Number": "Credit_Debit_Card_Number"
     },
     "data6": {},
-    "data7": {},
+    "data7": {
+        "IBAN_Number": "IBAN"
+    },
     "data12": {
         "Address": "Street_Address",
         "E-mail": "Email_Address"
@@ -29,7 +31,8 @@
         "gender": "Gender",
         "email": "Email_Address",
         "phone": "Phone_Number",
-        "street_address": "Street_Address"
+        "street_address": "Street_Address",
+        "ip_address": "IP_Address_v4"
     },
     "data14": {
         "CODE_GENDER": "Gender"
@@ -59,5 +62,102 @@
     },
     "data30": {
         "age": "Age"
+    },
+    "data31": {
+        "SSN": "US_Social_Security_Number"
+    },
+    "data32": {
+        "SSN": "US_Social_Security_Number",
+        "gender": "Gender",
+        "address": "Street_Address",
+        "phone": "Phone_Number",
+        "email": "Email_Address",
+        "CCN": "Credit_Debit_Card_Number",
+        "Full_Name": "Full_Name"
+    },
+    "data33": {
+        "First and Last Name": "Full_Name",
+        "SSN" :"US_Social_Security_Number",
+        "Credit Card Number" : "Credit_Debit_Card_Number"
+    },
+    "data34": {
+        "Random_IBAN": "IBAN"
+    },
+    "data35": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data36": {
+        "Name": "Full_Name",
+        "Age": "Age",
+        "SSN": "US_Social_Security_Number",
+        "Credit_History_Age": "Age"
+    },
+    "data37": {
+        "Name": "Full_Name",
+        "Age": "Age",
+        "SSN": "US_Social_Security_Number",
+        "Credit_History_Age": "Age"
+    },
+    "data38": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data39": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data40": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data41": {
+        "Source.IP": "IP_Address_v4",
+        "Destination.IP": "IP_Address_v4"
+    },
+    "data42": {
+        "Source.IP": "IP_Address_v4",
+        "Destination.IP": "IP_Address_v4"
+    },
+    "data43": {
+        "Source.IP": "IP_Address_v4",
+        "Destination.IP": "IP_Address_v4"
+    },
+    "data44": {
+        "Source.IP": "IP_Address_v4",
+        "Destination.IP": "IP_Address_v4"
+    },
+    "data45": {
+        "Source.IP": "IP_Address_v4",
+        "Destination.IP": "IP_Address_v4"
+    },
+    "data46": {
+        "IP": "IP_Address_v4"
+    },
+    "data47": {
+        "Src IP": "IP_Address_v4",
+        "Dst IP": "IP_Address_v4"
+    },
+    "data48": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data49": {
+        "VIN": "Vehicle_Identification_Number"
+    },
+    "data50": {
+        "IPv4": "IP_Address_v4",
+        "IPv6": "IP_Address_v6"
+    }, 
+    "data51": {
+        "SrcAddr": "IP_Address_v4",
+        "DstAddr": "IP_Address_v4"
+    },
+    "data52": {
+        "ipv6": "IP_Address_v6",
+        "srcaddr": "IP_Address_v6"
+    },
+    "data53": {
+        "BRANCH BIC (BIC8)": "Swift_Code",
+        "PARENT BIC": "Swift_Code"
+    }, 
+    "data54": {
+        "BIC": "Swift_Code"
     }
+
 }
