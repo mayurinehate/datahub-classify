@@ -28,7 +28,7 @@ def predict_infotypes(column_infos, confidence_level_threshold, global_config):
     logger.info(f"Confidence Level Threshold set to --> {confidence_level_threshold}")
     logger.info("===========================================================")
     for column_info in column_infos:
-        logger.debug(f"processing column: {column_info.metadata.name}")
+        logger.debug(f"processing column: {column_info.metadata.name} -- dataset: {column_info.metadata.dataset_name}")
         # iterate over all infotype functions
         proposal_list = []
         for infotype, infotype_fn in infotype_function_map.items():
@@ -44,8 +44,8 @@ def predict_infotypes(column_infos, confidence_level_threshold, global_config):
                         infotype_proposal = InfotypeProposal(infotype, confidence_level, debug_info)
                         proposal_list.append(infotype_proposal)
                 else:
-                    raise Exception("Failed basic checks for infotype - %s and column - %s" % \
-                          (infotype, column_info.metadata.name))
+                    raise Exception("Failed basic checks for infotype - %s, column - %s and dataset -%s" % \
+                          (infotype, column_info.metadata.name, column_info.metadata.dataset_name))
             except Exception as e:
                 # traceback.print_exc()
                 logger.warning(f"Failed to extract info type due to {e}")
