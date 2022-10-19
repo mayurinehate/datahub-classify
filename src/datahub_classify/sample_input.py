@@ -55,10 +55,16 @@ input1 = {
             'Values': 0.6
         },
         'Name': {
-            'regex': ["^.*card.*number.*$", "^.*number.*card.*$", "^.*credit.*card.*$", "^.*debit.*card.*$"]
+            'regex': ["^.*card.*number.*$", "^.*number.*card.*$",
+                      "^.*credit.*card.*$", "^.*debit.*card.*$",
+                      "ccn[^a-z]+.*", ".*[^a-z]+ccn", ".*[^a-z]+ccn[^a-z]+.*",
+                      "ccn"]
         },
         'Description': {
-            'regex': ["^.*card.*number.*$", "^.*number.*card.*$", "^.*credit.*card.*$", "^.*debit.*card.*$"]
+            'regex': ["^.*card.*number.*$", "^.*number.*card.*$",
+                      "^.*credit.*card.*$", "^.*debit.*card.*$",
+                      "ccn[^a-z]+.*", ".*[^a-z]+ccn", ".*[^a-z]+ccn[^a-z]+.*",
+                      "ccn"]
         },
         'Datatype': {
             'type': ['str', 'int']
@@ -91,10 +97,10 @@ input1 = {
 
     'Phone_Number': {
         'Prediction_Factors_and_Weights': {
-            'Name': 0.4,
+            'Name': 0.5,
             'Description': 0,
             'Datatype': 0,
-            'Values': 0.6
+            'Values': 0.5
         },
         'Name': {
             'regex': [".*phone.*(num|no).*", ".*(num|no).*phone.*",
@@ -212,5 +218,225 @@ input1 = {
             'regex': [],
             'library': ['rule_based_logic']
         }
-    }
+    },
+
+    'IBAN': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["iban[^a-z]+.*", ".*[^a-z]+iban", ".*[^a-z]+iban[^a-z]+.*",
+                      '.*international.*bank.*account.*',
+                      "iban"]
+        },
+        'Description': {
+            'regex': ["iban[^a-z]+.*", ".*[^a-z]+iban", ".*[^a-z]+iban[^a-z]+.*",
+                      '.*international.*bank.*account.*',
+                      "iban"]
+        },
+        'Datatype': {
+            'type': ['int']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [],
+            'library': ['scwifty']
+        }
+    },
+
+    'US_Social_Security_Number': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["ssn[^a-z]+.*", ".*[^a-z]+ssn", ".*[^a-z]+ssn[^a-z]+.*",
+                      '.*social.*security.*',
+                      "social","security",
+                      "ssn"]
+        },
+        'Description': {
+            'regex': ["ssn[^a-z]+.*", ".*[^a-z]+ssn", ".*[^a-z]+ssn[^a-z]+.*",
+                      '.*social.*security.*',
+                      "social","security",
+                      "ssn"]
+        },
+        'Datatype': {
+            'type': ['int', 'str']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [],
+            'library': ['stdnum']
+        }
+    },
+
+    'Vehicle_Identification_Number': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
+                      '.*vehicle.*identification.*', '.*chassis.*number.*',
+                      '.*frame.*number.*',
+                      'vin']
+        },
+        'Description': {
+            'regex':["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
+                      '.*vehicle.*identification.*', '.*chassis.*number.*',
+                      '.*frame.*number.*']
+        },
+        'Datatype': {
+            'type': ['int']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [],
+            'library': ['vininfo']
+        }
+    },
+
+    'IP_Address_v4': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
+                      "ip[^a-z]{0,1}v4.*", ".*[^a-z]+ip[^a-z]{0,1}v4.*",
+                      '.*ip.*address.*',
+                      '.*source.*add.*', '.*add.*source.*',
+                      '.*destination.*add.*', '.*add.*destination.*',
+                      '.*src.*add.*', '.*add.*src.*',
+                      '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
+                      "ip" ]
+        },
+        'Description': {
+            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
+                      "ip[^a-z]{0,1}v4.*", ".*[^a-z]+ip[^a-z]{0,1}v4.*",
+                      '.*ip.*address.*',
+                      '.*source.*add.*', '.*add.*source.*',
+                      '.*destination.*add.*', '.*add.*destination.*',
+                      '.*src.*add.*', '.*add.*src.*',
+                      '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
+                      "ip" ]
+        },
+        'Datatype': {
+            'type': ['str']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [r"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"],
+            'library': ['IPy', 'ipaddress']
+        }
+    },
+
+    'IP_Address_v6': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
+                      "ip[^a-z]{0,1}v6.*", ".*[^a-z]+ip[^a-z]{0,1}v6.*",
+                      '.*ip.*address.*',
+                      '.*source.*add.*', '.*add.*source.*',
+                      '.*destination.*add.*', '.*add.*destination.*',
+                      '.*src.*add.*', '.*add.*src.*',
+                      '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
+                      "ip"]
+        },
+        'Description': {
+            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
+                      "ip[^a-z]{0,1}v6.*", ".*[^a-z]+ip[^a-z]{0,1}v6.*",
+                      '.*ip.*address.*',
+                      '.*source.*add.*', '.*add.*source.*',
+                      '.*destination.*add.*', '.*add.*destination.*',
+                      '.*src.*add.*', '.*add.*src.*',
+                      '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
+                      "ip"]
+        },
+        'Datatype': {
+            'type': ['str']
+        },
+        'Values': {
+            'prediction_type': 'regex',
+            'regex': [r"(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"],
+            'library': ['IPy']
+        }
+    },
+
+    'US_Driving_License_Number': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["dl[^a-z]+.*", ".*[^a-z]+dl", ".*[^a-z]+dl[^a-z]+.*",
+                      '.*license.*num.*','.*num.*license.*',
+                      '.*driv.*licence.*', '.*licence.*driv.*',
+                      ]
+        },
+        'Description': {
+            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
+                      '.*ip.*address.*',
+                      ]
+        },
+        'Datatype': {
+            'type': ['str']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [],
+            'library': ['DLNValidation']
+        }
+    },
+
+    'Swift_Code': {
+        'Prediction_Factors_and_Weights': {
+            'Name': 0.4,
+            'Description': 0,
+            'Datatype': 0,
+            'Values': 0.6
+        },
+        'Name': {
+            'regex': ["bic[^a-z]+.*", ".*[^a-z]+bic", ".*[^a-z]+bic[^a-z]+.*",
+                      '.*swift.*num.*', '.*num.*swift.*',
+                      '.*swift.*code.*', '.*code.*swift.*',
+                      '.*swift.*',
+                      '.*business.*identifier.*code.*',
+                      'bic']
+        },
+        'Description': {
+            'regex': ["bic[^a-z]+.*", ".*[^a-z]+bic", ".*[^a-z]+bic[^a-z]+.*",
+                      '.*swift.*num.*', '.*num.*swift.*',
+                      '.*swift.*code.*', '.*code.*swift.*',
+                      '.*swift.*',
+                      '.*business.*identifier.*code.*',
+                      'bic']
+        },
+        'Datatype': {
+            'type': ['int', 'str']
+        },
+        'Values': {
+            'prediction_type': 'library',
+            'regex': [],
+            'library': ['schwifty']
+        }
+    },
+
 }
