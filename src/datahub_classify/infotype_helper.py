@@ -408,18 +408,14 @@ def inspect_for_age(metadata, values, config):
                     min_val = np.percentile(int_col, 5)
                     num_unique = len(np.unique(int_col))
                     if max_val <= 120 and min_val > 0:
-                        if max_val <= 10:
-                            values_score+= 0.25
-                        else:
-                        # Add 0.5 score if all values are within [0, 120]
-                            values_score += 0.5
+                        values_score += 0.4
                         # TODO: think about why we included age_range comparison in earlier discussion
                         # Add 0.1 score if range is more than np.minimum(len(df)/50, 60)
                         # if age_range > np.minimum(len(values) / 50, 60):
                         #     values_score += 0.1
                         # Add 0.2 score if num unique values is more than np.minimum(len(df)/10, 40)
                         if num_unique >= np.minimum(len(values) / 10, 40):
-                            values_score += 0.2
+                            values_score += 0.3
                     else:
                         values_score = 0
                 except:
