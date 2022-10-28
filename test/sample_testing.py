@@ -29,7 +29,6 @@ update_confidence_slabs_json = False
 logging_directory = current_wdr + "/logs/logs.log"
 
 
-
 def get_public_data(input_data_path):
     data1 = pd.read_csv(input_data_path + "UCI_Credit_Card.csv")
     data2 = pd.read_csv(input_data_path + "Age2_address1_credit_card3.csv")
@@ -83,7 +82,8 @@ def get_public_data(input_data_path):
             'data40': data40, 'data41': data41, 'data42': data42, 'data43': data43,
             'data44': data44, 'data45': data45, 'data46': data46, 'data47': data47,
             'data48': data48, 'data49': data49, 'data50': data50, 'data51': data51,
-            'data52': data52, 'data53': data53, 'data54': data54 }
+            'data52': data52, 'data53': data53, 'data54': data54}
+
 
 def populate_column_info_list(public_data_list):
     column_info_list = []
