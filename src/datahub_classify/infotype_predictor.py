@@ -1,10 +1,10 @@
 import importlib
 import logging
 from datahub_classify.supported_infotypes import infotypes_to_use
-from datahub_classify.helper_classes import InfotypeProposal
+from datahub_classify.helper_classes import InfotypeProposal, ColumnInfo
 from datahub_classify.infotype_utils import perform_basic_checks
-logger = logging.getLogger(__name__)
 
+logger = logging.getLogger(__name__)
 
 
 def get_infotype_function_mapping():
@@ -19,7 +19,7 @@ def get_infotype_function_mapping():
     return infotype_function_map
 
 
-def predict_infotypes(column_infos, confidence_level_threshold, global_config):
+def predict_infotypes(column_infos: list[ColumnInfo], confidence_level_threshold: float, global_config: dict):
     # assert type(column_infos) == list, "type of column_infos should be list"
     infotype_function_map = get_infotype_function_mapping()
     logger.info(f"Total columns to be processed --> {len(column_infos)}")
@@ -42,8 +42,8 @@ def predict_infotypes(column_infos, confidence_level_threshold, global_config):
                         infotype_proposal = InfotypeProposal(infotype, confidence_level, debug_info)
                         proposal_list.append(infotype_proposal)
                 else:
-                    raise Exception("Failed basic checks for infotype - %s, column - %s and dataset -%s" % \
-                          (infotype, column_info.metadata.name, column_info.metadata.dataset_name))
+                    raise Exception("Failed basic checks for infotype - %s, column - %s and dataset -%s" %
+                                    (infotype, column_info.metadata.name, column_info.metadata.dataset_name))
             except Exception as e:
                 # traceback.print_exc()
                 logger.warning(f"Failed to extract info type due to {e}")
