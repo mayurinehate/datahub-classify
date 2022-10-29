@@ -3,8 +3,6 @@ import logging
 from datahub_classify.supported_infotypes import infotypes_to_use
 from datahub_classify.helper_classes import InfotypeProposal
 from datahub_classify.infotype_utils import perform_basic_checks
-import pandas as pd
-from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
@@ -36,7 +34,7 @@ def predict_infotypes(column_infos, confidence_level_threshold, global_config):
             config_dict = global_config[infotype]
 
             # call the infotype prediction function
-            column_info.values = pd.Series(column_info.values).dropna()
+            column_info.values = [val for val in column_info.values if str(val).strip() not in ['nan', '', 'None']]
             try:
                 if perform_basic_checks(column_info.metadata, column_info.values, config_dict, infotype):
                     confidence_level, debug_info = infotype_fn(column_info.metadata, column_info.values, config_dict)
