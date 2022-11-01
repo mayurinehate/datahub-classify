@@ -55,13 +55,13 @@ input1 = {
             'Values': 0.6
         },
         'Name': {
-            'regex': ["^.*card.*number.*$", "^.*number.*card.*$",
+            'regex': ["^.*card.*(num|no).*$", "^.*(num|no).*card.*$",
                       "^.*credit.*card.*$", "^.*debit.*card.*$",
                       "ccn[^a-z]+.*", ".*[^a-z]+ccn", ".*[^a-z]+ccn[^a-z]+.*",
                       "ccn"]
         },
         'Description': {
-            'regex': ["^.*card.*number.*$", "^.*number.*card.*$",
+            'regex': ["^.*card.*(num|no).*$", "^.*(num|no).*card.*$",
                       "^.*credit.*card.*$", "^.*debit.*card.*$",
                       "ccn[^a-z]+.*", ".*[^a-z]+ccn", ".*[^a-z]+ccn[^a-z]+.*",
                       "ccn"]
@@ -229,12 +229,12 @@ input1 = {
         },
         'Name': {
             'regex': ["iban[^a-z]+.*", ".*[^a-z]+iban", ".*[^a-z]+iban[^a-z]+.*",
-                      '.*international.*bank.*account.*',
+                      '.*int.*bank.*acc.*',
                       "iban"]
         },
         'Description': {
             'regex': ["iban[^a-z]+.*", ".*[^a-z]+iban", ".*[^a-z]+iban[^a-z]+.*",
-                      '.*international.*bank.*account.*',
+                      '.*int.*bank.*acc.*',
                       "iban"]
         },
         'Datatype': {
@@ -285,17 +285,17 @@ input1 = {
         },
         'Name': {
             'regex': ["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
-                      '.*vehicle.*identification.*', '.*chassis.*number.*',
-                      '.*frame.*number.*',
+                      '.*vehicle.*identification.*', '.*chassis.*(num|no).*',
+                      '.*frame.*(num|no).*',
                       'vin']
         },
         'Description': {
             'regex':["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
-                      '.*vehicle.*identification.*', '.*chassis.*number.*',
-                      '.*frame.*number.*']
+                      '.*vehicle.*identification.*', '.*chassis.*(num|no).*',
+                      '.*frame.*(num|no).*']
         },
         'Datatype': {
-            'type': ['int']
+            'type': ['str']
         },
         'Values': {
             'prediction_type': 'library',
@@ -337,7 +337,7 @@ input1 = {
         'Values': {
             'prediction_type': 'library',
             'regex': [r"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$"],
-            'library': ['IPy', 'ipaddress']
+            'library': ['ipaddress']
         }
     },
 
@@ -372,9 +372,9 @@ input1 = {
             'type': ['str']
         },
         'Values': {
-            'prediction_type': 'regex',
+            'prediction_type': 'library',
             'regex': [r"(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"],
-            'library': ['IPy']
+            'library': ['ipaddress']
         }
     },
 
@@ -387,22 +387,41 @@ input1 = {
         },
         'Name': {
             'regex': ["dl[^a-z]+.*", ".*[^a-z]+dl", ".*[^a-z]+dl[^a-z]+.*",
-                      '.*license.*num.*','.*num.*license.*',
-                      '.*driv.*licence.*', '.*licence.*driv.*',
+                      '.*license.*(num|no).*','.*(num|no).*license.*',
+                      '.*driv.*license.*', '.*license.*driv.*',
+                      'driv', 'lic',
                       ]
         },
         'Description': {
-            'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
-                      '.*ip.*address.*',
+            'regex': ["dl[^a-z]+.*", ".*[^a-z]+dl", ".*[^a-z]+dl[^a-z]+.*",
+                      '.*license.*(num|no).*','.*(num|no).*license.*',
+                      '.*driv.*license.*', '.*license.*driv.*',
+                      'driv', 'lic',
                       ]
         },
         'Datatype': {
             'type': ['str']
         },
         'Values': {
-            'prediction_type': 'library',
-            'regex': [],
-            'library': ['DLNValidation']
+            'prediction_type': 'regex',
+            'regex': ['\d{7}','[a-zA-Z]\d{8}', '\d{9}', '9\d{8}','[a-zA-Z]\d{7}',
+                      '\d{2}-\d{3}-\d{4}', "[a-zA-Z] \d{3} \d{3} \d{3} \d{3}",
+                    "[a-zA-Z]\d{12}","[a-zA-Z]\d{3}-\d{3}-\d{2}-\d{3}-\d",
+                    "[a-zA-Z]-\d{3}-\d{3}-\d{3}-\d{3}","[a-zA-Z]\s\d{3}\s\d{3}\s\d{3}\s\d{3}",
+                    "[a-zA-Z]\d{12}", "[a-zA-Z]{2}\d{6}[a-zA-Z]", "[a-zA-Z]\d{3}-\d{4}-\d{4}",
+                    "[a-zA-Z]\d{11}", "\d{4}-\d{2}-\d{4}", "\d{3}[a-zA-Z]{2}\d{4}",
+                    "[a-zA-Z]\d{2}-\d{2}-\d{4}", "[a-zA-Z]\d{2}-\d{3}-\d{3}",
+                      '[a-zA-Z]\d{9}', "\d{3}-\d{2}-\d{4}", "[a-zA-Z]\d{9}",
+                      "(([0][1-9]|[1][0-2])\d{3}([1-9][0-9]{3})41([0][1-9]|[1][0-9]|[3][0-1]))"
+                      "\d{10}", "([0][1-9]|[1][0-2])[a-zA-Z]{3}\d{2}(0[1-9]|[1-2][0-9]|3[0-1])\d",
+                      "[a-zA-Z]\d{4}-\d{5}-\d{5}","[a-zA-Z]\d{14}","\d{3} \d{3} \d{3}",
+                      "\d{12}", "[a-zA-Z]{3}-\d{2}-\d{4}", "[a-zA-Z]{1}[0-9]{4,8}",
+                      "[a-zA-Z]{2}[0-9]{3,7}",  "\d{2}\s\d{3}\s\d{3}","[1-9]{2}\d{5}",
+                      "\d{8}", "\d{7,9}", "\d{7}[a-zA-Z]", "[a-zA-Z]\d{8}",
+                      "[a-zA-Z*]{1,6}[a-zA-Z]{2}\d[a-zA-Z0-9]{4,6}", "[a-zA-Z]\d{6}",
+                      "[a-zA-Z]\d{3}-\d{4}-\d{4}-\d{2}", "\d{6}-\d{3}",
+                      "\d{2}[a-zA-Z]{3}\d{5}", "\d{13}"],
+            'library': []
         }
     },
 
@@ -415,7 +434,7 @@ input1 = {
         },
         'Name': {
             'regex': ["bic[^a-z]+.*", ".*[^a-z]+bic", ".*[^a-z]+bic[^a-z]+.*",
-                      '.*swift.*num.*', '.*num.*swift.*',
+                      '.*swift.*(num|no).*', '.*(num|no).*swift.*',
                       '.*swift.*code.*', '.*code.*swift.*',
                       '.*swift.*',
                       '.*business.*identifier.*code.*',
@@ -423,7 +442,7 @@ input1 = {
         },
         'Description': {
             'regex': ["bic[^a-z]+.*", ".*[^a-z]+bic", ".*[^a-z]+bic[^a-z]+.*",
-                      '.*swift.*num.*', '.*num.*swift.*',
+                      '.*swift.*(num|no).*', '.*(num|no).*swift.*',
                       '.*swift.*code.*', '.*code.*swift.*',
                       '.*swift.*',
                       '.*business.*identifier.*code.*',
