@@ -338,7 +338,7 @@ def inspect_for_full_name(metadata, values, config):
                 weight = 1
                 for value in values:
                     try:
-                        if len(value) <= 50 and len(re.split(r"[^a-zA-Z0-9]",value))>=2:
+                        if len(value) <= 50 and len(re.split(r"[^a-zA-Z0-9]", value)) >= 2:
                             if detect_named_entity_spacy(spacy_models_list, entities_of_interest, value):
                                 entity_count += weight
                     except:
@@ -569,7 +569,6 @@ def inspect_for_vehicle_identification_number(metadata, values, config):
     return confidence_level, debug_info
 
 
-
 def inspect_for_ip_address_v4(metadata, values, config):
     prediction_factors_weights = config[PREDICTION_FACTORS_AND_WEIGHTS]
     debug_info = {}
@@ -624,6 +623,7 @@ def inspect_for_ip_address_v4(metadata, values, config):
     confidence_level = np.round(confidence_level, 2)
 
     return confidence_level, debug_info
+
 
 def inspect_for_ip_address_v6(metadata, values, config):
     prediction_factors_weights = config[PREDICTION_FACTORS_AND_WEIGHTS]
@@ -680,6 +680,7 @@ def inspect_for_ip_address_v6(metadata, values, config):
 
     return confidence_level, debug_info
 
+
 def inspect_for_us_driving_license_number(metadata, values, config):
     prediction_factors_weights = config[PREDICTION_FACTORS_AND_WEIGHTS]
     debug_info = {}
@@ -691,7 +692,8 @@ def inspect_for_us_driving_license_number(metadata, values, config):
             if config[VALUES][PREDICTION_TYPE] == 'regex':
                 values_score = match_regex_for_values(values, config[VALUES][REGEX])
             elif config[VALUES][PREDICTION_TYPE] == 'library':
-                raise Exception("Currently prediction type 'library' is not supported for infotype US Driving License Number")
+                raise Exception("Currently prediction type 'library' is not supported for "
+                                "infotype US Driving License Number")
             else:
                 raise Exception("Inappropriate values_prediction_type %s" % config[VALUES][PREDICTION_TYPE])
         except Exception as e:
@@ -838,6 +840,3 @@ def inspect_for_swift_code(metadata, values, config):
     confidence_level = np.round(confidence_level, 2)
 
     return confidence_level, debug_info
-
-
-
