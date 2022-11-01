@@ -8,11 +8,10 @@ from  vininfo import Vin
 import dlnvalidation
 import logging
 from stdnum.us import ssn as us_ssn
-from stdnum import bic
 import ipaddress
-
 from datahub_classify.infotype_utils import match_regex, match_datatype, match_regex_for_values, detect_named_entity_spacy
 from datahub_classify.constants import *
+
 
 # logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -169,12 +168,13 @@ def inspect_for_gender(metadata, values, config):
             debug_info[DATATYPE] = match_datatype(metadata.datatype, config[DATATYPE][TYPE])
     try:
         if debug_info.get(NAME, None) and int(debug_info[NAME]) == 1 \
-                and VALUES in debug_info.keys() and debug_info[VALUES] == 0:
-            num_unique_values = len(values.unique())
+                and VALUES in debug_info.keys() and int(debug_info[VALUES]) == 0:
+            num_unique_values = len(np.unique(values))
             if num_unique_values < 5:
                 debug_info[VALUES] = 0.9
     except Exception as e:
-        pass
+        logger.error(f"Failed to evaluate unique values whn name_score==1 for Gender due to {e}")
+
 
     confidence_level = 0
     for key in debug_info.keys():
@@ -529,8 +529,8 @@ def inspect_for_vehicle_identification_number(metadata, values, config):
                 vin_score = 0
                 for val in values:
                     try:
-                        if Vin(val).verify_checksum():
-                            vin_score += 1
+                        valid_num = Vin(val)
+                        vin_score += 1
                     except:
                         pass
                 values_score = vin_score / len(values)
@@ -686,12 +686,6 @@ def inspect_for_us_driving_license_number(metadata, values, config):
     prediction_factors_weights = config[PREDICTION_FACTORS_AND_WEIGHTS]
     debug_info = {}
 
-    states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
-              "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-              "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-              "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-              "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
-
     # Value Logic
     if prediction_factors_weights.get(VALUES, 0) > 0:
         values_score = 0
@@ -699,16 +693,7 @@ def inspect_for_us_driving_license_number(metadata, values, config):
             if config[VALUES][PREDICTION_TYPE] == 'regex':
                 values_score = match_regex_for_values(values, config[VALUES][REGEX])
             elif config[VALUES][PREDICTION_TYPE] == 'library':
-                dln_score = 0
-                for val in values:
-                    try:
-                        for state in states:
-                            if dlnvalidation.is_valid(val, state):
-                                dln_score += 1
-                                break
-                    except:
-                        pass
-                values_score = dln_score / len(values)
+                raise Exception("Currently prediction type 'library' is not supported for infotype US Driving License Number")
             else:
                 raise Exception("Inappropriate values_prediction_type %s" % config[VALUES][PREDICTION_TYPE])
         except Exception as e:
@@ -736,7 +721,7 @@ def inspect_for_us_driving_license_number(metadata, values, config):
             debug_info[DATATYPE] = f"0.0 (Blank {DATATYPE} Metadata)"
         else:
             debug_info[DATATYPE] = match_datatype(metadata.datatype, config[DATATYPE][TYPE])
-
+  
     confidence_level = 0
     for key in debug_info.keys():
         if type(debug_info[key]) != str:
