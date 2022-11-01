@@ -24,7 +24,7 @@ current_wdr = os.getcwd()
 input_data_dir = current_wdr + "\\datasets\\"
 input_jsons_dir = current_wdr + "\\expected_output\\"
 confidence_threshold = 0.6
-update_confidence_slabs_json = False
+update_confidence_slabs_json = True
 
 logging_directory = current_wdr + "/logs/logs.log"
 
@@ -73,6 +73,8 @@ def get_public_data(input_data_path):
     data52 = pd.read_csv(input_data_path + "ipv6_random_generated.csv")
     data53 = pd.read_csv(input_data_path + "score-banks-updated-sep2022.csv")
     data54 = pd.read_csv(input_data_path + "blz-aktuell-xlsx-data.csv")
+    data55 = pd.read_csv(input_data_path + "automotive_service_data.csv")
+    data56 = pd.read_excel(input_data_path + "US_Driving_License.xlsx")
     return {'data1': data1, 'data2': data2, 'data3': data3, 'data4': data4, 'data5': data5,
             'data6': data6, 'data7': data7, 'data12': data12, 'data13': data13, 'data14': data14,
             'data15': data15,'data16': data16, 'data17': data17, 'data21': data21, 'data25': data25,
@@ -82,7 +84,9 @@ def get_public_data(input_data_path):
             'data40': data40, 'data41': data41, 'data42': data42, 'data43': data43,
             'data44': data44, 'data45': data45, 'data46': data46, 'data47': data47,
             'data48': data48, 'data49': data49, 'data50': data50, 'data51': data51,
-            'data52': data52, 'data53': data53, 'data54': data54}
+            'data52': data52, 'data53': data53, 'data54': data54, 'data55': data55,
+            'data56': data56}
+
 
 
 def populate_column_info_list(public_data_list):
@@ -121,6 +125,8 @@ def get_public_data_expected_output(public_data_list, infotypes_to_use):
                                                                       infotypes_to_use):
                 expected_output_ideal[dataset][col] = "no_infotype"
 
+            if not expected_infotypes_confidence_slabs.get(dataset, None):
+                expected_infotypes_confidence_slabs[dataset] = dict()
             if (col not in expected_infotypes_confidence_slabs[dataset].keys()) or (expected_output_ideal[dataset][col]
                                                                                     not in infotypes_to_use):
                 expected_infotypes_confidence_slabs[dataset][col] = 0.0
