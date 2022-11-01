@@ -7,6 +7,8 @@ API expects following parameters in the output
 - _column_infos_ - This is a list of ColumnInfo objects. Each ColumnInfo object contains metadata (col_name, description, datatype, etc) and values of a column. 
 - _confidence_level_threshold_ - If the infotype prediction confidence is greater than the confidence threshold then the prediction is considered as a proposal. This is the common threshold for all infotypes.
 - _global_config_ - This dictionary contains configuration details about all supported infotypes. Refer section _"Infotype Configuration"_ for more information.
+- _infotypes_ - This is a list of infotypes that is to be processed. This is an optional argument, if specified then it will override the default list of all supported infotypes. If user is interested in only few infotypes then this list can be specified with correct infotype names. Infotype names are case sensitive.
+
 ### Output Contract:
 API returns a list of ColumnInfo objects of length same as input ColumnInfo objects list. A populated list of Infotype proposal(s), if any, is added in the ColumnInfo object itself with a variable name as infotype_proposals. The infotype_proposals list contains InfotypeProposal objects which has following information
 - _infotype_ - A proposed infotype name.
