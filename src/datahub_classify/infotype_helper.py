@@ -1,11 +1,9 @@
 import numpy as np
 import spacy
-import traceback
 import phonenumbers
 import re
 from schwifty import IBAN, BIC
 from  vininfo import Vin
-import dlnvalidation
 import logging
 from stdnum.us import ssn as us_ssn
 import ipaddress
@@ -721,7 +719,7 @@ def inspect_for_us_driving_license_number(metadata, values, config):
             debug_info[DATATYPE] = f"0.0 (Blank {DATATYPE} Metadata)"
         else:
             debug_info[DATATYPE] = match_datatype(metadata.datatype, config[DATATYPE][TYPE])
-  
+
     confidence_level = 0
     for key in debug_info.keys():
         if type(debug_info[key]) != str:
