@@ -18,12 +18,15 @@ base_requirements = {
     "vininfo==1.7.0",
     "schwifty==2022.9.0",
     "python-stdnum==1.17",
-    "dlnvalidation",
-    "pandas==1.5.0",
-    "scikit-learn==1.1.2",
+    "ipaddress==1.0.23",
     "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.0/en_core_web_sm-3.4.0.tar.gz",
+}
+
+dev_requirements = {
     "pytest",
-    "openpyxl"
+    "openpyxl",
+    "pandas==1.5.0",
+    "scikit-learn==1.1.2"
 }
 
 setuptools.setup(
@@ -65,4 +68,7 @@ setuptools.setup(
     packages=setuptools.find_namespace_packages(where="./src"),
     # Dependencies.
     install_requires=list(base_requirements),
+    extras_require = {
+        'test': list(dev_requirements)
+    }
 )
