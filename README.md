@@ -76,13 +76,7 @@ A debug information is associated with each infotype proposal, it provides detai
 4. Email Address 
 5. Phone Number 
 6. Street Address 
-7. Credit-Debit Card Number 
-# Required Libraries
-Following libraries are required
-- Spacy 3.4.1 
-- phonenumbers 8.12.56
-#### Required Spacy model
-$ python3 -m spacy download en_core_web_sm
+7. Credit-Debit Card Number
 # Assumptions
 - If value prediction factor weight is non-zero (indicating values should be used for infotype inspection) then a minimum 50 non-null column values should be present.
 # How to Run

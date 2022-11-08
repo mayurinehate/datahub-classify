@@ -3,13 +3,13 @@ import spacy
 import phonenumbers
 import re
 from schwifty import IBAN, BIC
-from  vininfo import Vin
+from vininfo import Vin
 import logging
 from stdnum.us import ssn as us_ssn
 import ipaddress
-from datahub_classify.infotype_utils import match_regex, match_datatype, match_regex_for_values, detect_named_entity_spacy
+from datahub_classify.infotype_utils import match_regex, match_datatype, match_regex_for_values, \
+    detect_named_entity_spacy
 from datahub_classify.constants import *
-
 
 # logging.basicConfig(filename='logs.log', encoding='utf-8', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -83,7 +83,7 @@ def inspect_for_street_address(metadata, values, config):
                     try:
                         if detect_named_entity_spacy(spacy_models_list, entities_of_interest, value):
                             entity_count += weight
-                    except:
+                    except Exception:
                         pass
                 entities_score = entity_count / len(values)
                 values_score = np.minimum(entities_score, 1)
@@ -172,7 +172,6 @@ def inspect_for_gender(metadata, values, config):
                 debug_info[VALUES] = 0.9
     except Exception as e:
         logger.error(f"Failed to evaluate unique values whn name_score==1 for Gender due to {e}")
-
 
     confidence_level = 0
     for key in debug_info.keys():
@@ -280,7 +279,7 @@ def inspect_for_phone_number(metadata, values, config):
                             if phonenumbers.is_possible_number(parsed_number):
                                 valid_phone_numbers_count += 1
                                 break
-                    except:
+                    except Exception:
                         pass
                 values_score = valid_phone_numbers_count / len(values)
             else:
@@ -341,7 +340,7 @@ def inspect_for_full_name(metadata, values, config):
                         if len(value) <= 50 and len(re.split(r"[^a-zA-Z0-9]", value)) >= 2:
                             if detect_named_entity_spacy(spacy_models_list, entities_of_interest, value):
                                 entity_count += weight
-                    except:
+                    except Exception:
                         pass
                 entities_score = entity_count / len(values)
                 values_score = np.minimum(entities_score, 1)
@@ -416,7 +415,7 @@ def inspect_for_age(metadata, values, config):
                             values_score += 0.3
                     else:
                         values_score = 0
-                except:
+                except Exception:
                     pass
             else:
                 raise Exception("Inappropriate values_prediction_type %s" % config[VALUES][PREDICTION_TYPE])
@@ -454,7 +453,6 @@ def inspect_for_age(metadata, values, config):
     return confidence_level, debug_info
 
 
-
 def inspect_for_iban(metadata, values, config):
     prediction_factors_weights = config[PREDICTION_FACTORS_AND_WEIGHTS]
     debug_info = {}
@@ -463,7 +461,6 @@ def inspect_for_iban(metadata, values, config):
     if prediction_factors_weights.get(VALUES, 0) > 0:
         values_score = 0
         try:
-            values_cleaned = []
             if config[VALUES][PREDICTION_TYPE] == 'regex':
                 values_score = match_regex_for_values(values, config[VALUES][REGEX])
             elif config[VALUES][PREDICTION_TYPE] == 'library':
@@ -472,7 +469,7 @@ def inspect_for_iban(metadata, values, config):
                     try:
                         if IBAN(val, allow_invalid=True).is_valid:
                             iban_score += 1
-                    except:
+                    except Exception:
                         pass
                 values_score = iban_score / len(values)
             else:
@@ -520,16 +517,16 @@ def inspect_for_vehicle_identification_number(metadata, values, config):
     if prediction_factors_weights.get(VALUES, 0) > 0:
         values_score = 0
         try:
-            values_cleaned = []
             if config[VALUES][PREDICTION_TYPE] == 'regex':
                 values_score = match_regex_for_values(values, config[VALUES][REGEX])
             elif config[VALUES][PREDICTION_TYPE] == 'library':
                 vin_score = 0
                 for val in values:
                     try:
-                        valid_num = Vin(val)
+                        # Vin constructor implicitly validates the VIN
+                        _ = Vin(val)
                         vin_score += 1
-                    except:
+                    except Exception:
                         pass
                 values_score = vin_score / len(values)
             else:
@@ -583,9 +580,9 @@ def inspect_for_ip_address_v4(metadata, values, config):
                 count = 0
                 for value in values:
                     try:
-                        out = ipaddress.IPv4Address(str(value))
+                        _ = ipaddress.IPv4Address(str(value))
                         count = count + 1
-                    except:
+                    except Exception:
                         pass
                 values_score = count / len(values)
             else:
@@ -639,9 +636,9 @@ def inspect_for_ip_address_v6(metadata, values, config):
                 count = 0
                 for value in values:
                     try:
-                        out = ipaddress.IPv6Address(str(value))
+                        _ = ipaddress.IPv6Address(str(value))
                         count = count + 1
-                    except:
+                    except Exception:
                         pass
                 values_score = count / len(values)
             else:
@@ -744,10 +741,11 @@ def inspect_for_us_social_security_number(metadata, values, config):
             elif config[VALUES][PREDICTION_TYPE] == 'library':
                 us_ssn_score = 0
                 for val in values:
+                    # TODO: we don't require this try-catch block as is_valid() gives boolean response
                     try:
                         if us_ssn.is_valid(val):
                             us_ssn_score += 1
-                    except:
+                    except Exception:
                         pass
                 values_score = us_ssn_score / len(values)
             else:
@@ -801,9 +799,10 @@ def inspect_for_swift_code(metadata, values, config):
                 swift_score = 0
                 for val in values:
                     try:
+                        # TODO: we can have same implementation for IBAN and BAC?
                         if BIC(val):
                             swift_score += 1
-                    except:
+                    except Exception:
                         pass
                 values_score = swift_score / len(values)
             else:

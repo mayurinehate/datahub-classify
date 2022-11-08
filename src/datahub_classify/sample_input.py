@@ -255,15 +255,17 @@ input1 = {
             'Values': 0.6
         },
         'Name': {
+            # TODO: can we have patterns with "us" in it? Only SSN will be generic, not specific to US
+            # TODO: can we have patterns with "Identification Number" text?
             'regex': ["ssn[^a-z]+.*", ".*[^a-z]+ssn", ".*[^a-z]+ssn[^a-z]+.*",
                       '.*social.*security.*',
-                      "social","security",
+                      "social", "security",
                       "ssn"]
         },
         'Description': {
             'regex': ["ssn[^a-z]+.*", ".*[^a-z]+ssn", ".*[^a-z]+ssn[^a-z]+.*",
                       '.*social.*security.*',
-                      "social","security",
+                      "social", "security",
                       "ssn"]
         },
         'Datatype': {
@@ -290,7 +292,7 @@ input1 = {
                       'vin']
         },
         'Description': {
-            'regex':["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
+            'regex': ["vin[^a-z]+.*", ".*[^a-z]+vin", ".*[^a-z]+vin[^a-z]+.*",
                       '.*vehicle.*identification.*', '.*chassis.*(num|no).*',
                       '.*frame.*(num|no).*']
         },
@@ -306,6 +308,7 @@ input1 = {
 
     'IP_Address_v4': {
         'Prediction_Factors_and_Weights': {
+            # TODO: can we have more confidence on values?
             'Name': 0.4,
             'Description': 0,
             'Datatype': 0,
@@ -319,7 +322,7 @@ input1 = {
                       '.*destination.*add.*', '.*add.*destination.*',
                       '.*src.*add.*', '.*add.*src.*',
                       '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
-                      "ip" ]
+                      "ip"]
         },
         'Description': {
             'regex': ["ip[^a-z]+.*", ".*[^a-z]+ip", ".*[^a-z]+ip[^a-z]+.*",
@@ -329,7 +332,7 @@ input1 = {
                       '.*destination.*add.*', '.*add.*destination.*',
                       '.*src.*add.*', '.*add.*src.*',
                       '.*d[e]{0,1}st.*add.*', '.*add.*d[e]{0,1}st.*',
-                      "ip" ]
+                      "ip"]
         },
         'Datatype': {
             'type': ['str']
@@ -343,6 +346,7 @@ input1 = {
 
     'IP_Address_v6': {
         'Prediction_Factors_and_Weights': {
+            # TODO: can we have more confidence on values?
             'Name': 0.4,
             'Description': 0,
             'Datatype': 0,
@@ -387,6 +391,7 @@ input1 = {
         },
         'Name': {
             'regex': ["dl[^a-z]+.*", ".*[^a-z]+dl", ".*[^a-z]+dl[^a-z]+.*",
+                      # TODO: do we require following two patterns? isn't it generic?
                       '.*license.*(num|no).*','.*(num|no).*license.*',
                       '.*driv.*license.*', '.*license.*driv.*',
                       'driv', 'lic',
@@ -457,5 +462,4 @@ input1 = {
             'library': ['schwifty']
         }
     },
-
 }
